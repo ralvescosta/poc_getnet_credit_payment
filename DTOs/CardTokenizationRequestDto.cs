@@ -2,7 +2,7 @@
 
 namespace PocGetNet.DTOs
 {
-    public class CardTokenizationRequest
+    public class CardTokenizationRequestDto
     {
         [JsonProperty("card_number")]
         public string CardNumber { get; set; }

@@ -26,7 +26,7 @@ namespace PocGetNet.DTOs
         public string Name { get; set; }
 
         [JsonProperty("status_code")]
-        public string StatusCode { get; set; }
+        public int StatusCode { get; set; }
 
         [JsonProperty("details")]
         public IEnumerable<ErrorDetailsDto> Details { get; set; }

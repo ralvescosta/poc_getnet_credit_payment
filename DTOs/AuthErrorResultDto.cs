@@ -2,7 +2,7 @@
 
 namespace PocGetNet.DTOs
 {
-    public class AuthErrorResult
+    public class AuthErrorResultDto
     {
         [JsonProperty("error")]
         public string Error { get; set; }

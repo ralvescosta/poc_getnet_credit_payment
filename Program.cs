@@ -23,7 +23,7 @@ namespace PocGetNet
             /*
              * CARD TOKENIZATION
              */
-            var cardTokenizationRequest = new CardTokenizationRequest { CardNumber = "5155901222280001", CustiomerId = Guid.NewGuid().ToString() };
+            var cardTokenizationRequest = new CardTokenizationRequestDto { CardNumber = "5155901222280001", CustiomerId = Guid.NewGuid().ToString() };
             var cardTokenized = await getNetRepository.CardTokenization(auth, cardTokenizationRequest);
 
             /*

@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Es34wUfsVUXv3HAgYA+UJ/N80f8PES5CQ+nOGZCj1b5BbNlngUXJ/cBGXtxR3A8+vqoRGejJohpjW8bTmWfO5A==",
+  "dgSpecHash": "OZNWQVhEHt/K2U5n80N4nYkXY1gUhc3cHubEJ/53k2cHu5KN/CvatftPQYw0QnAAhJkWsm6nOfiGKxYWd1arAA==",
   "success": true,
   "projectFilePath": "C:\\Users\\rafael\\Desktop\\dti\\poc's\\PocGetNet\\PocGetNet.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\rafael\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "C:\\Users\\rafael\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\system.net.http.json\\5.0.0\\system.net.http.json.5.0.0.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\system.text.json\\5.0.0\\system.text.json.5.0.0.nupkg.sha512"
   ],
   "logs": []
 }

@@ -28,3 +28,5 @@ C:\Users\rafael\Desktop\dti\poc's\PocGetNet\obj\Debug\netcoreapp3.1\PocGetNet.cs
 C:\Users\rafael\Desktop\dti\poc's\PocGetNet\obj\Debug\netcoreapp3.1\PocGetNet.dll
 C:\Users\rafael\Desktop\dti\poc's\PocGetNet\obj\Debug\netcoreapp3.1\PocGetNet.pdb
 C:\Users\rafael\Desktop\dti\poc's\PocGetNet\obj\Debug\netcoreapp3.1\PocGetNet.genruntimeconfig.cache
+C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\System.Net.Http.Json.dll
+C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\System.Text.Json.dll

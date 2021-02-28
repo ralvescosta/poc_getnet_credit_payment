@@ -34,12 +34,12 @@ namespace PocGetNet.Repositories
                 return result;
             }
 
-            var error = DeserializeHttpContent<AuthErrorResult>(contentInString);
+            var error = DeserializeHttpContent<AuthErrorResultDto>(contentInString);
             Console.WriteLine(error.ErrorDescription);
             throw new ApplicationException(error.ErrorDescription);
         }
 
-        public async Task<CardTokenizationResultDto> CardTokenization(AuthenticationResultDto auth, CardTokenizationRequest tokenizationRequest)
+        public async Task<CardTokenizationResultDto> CardTokenization(AuthenticationResultDto auth, CardTokenizationRequestDto tokenizationRequest)
         {
             var tokenzinationRequest = CreateTokenizationRequest(auth.AccessToken, tokenizationRequest);
             var (contentInString, statusCode) = await Execute(tokenzinationRequest);
@@ -51,6 +51,22 @@ namespace PocGetNet.Repositories
 
             throw new ApplicationException("");
         }
+
+        //public async Task<CardTokenizationResultDto> CardTokenization(AuthenticationResultDto auth, CardTokenizationRequestDto tokenizationRequest)
+        //{
+        //    var json = JsonConvert.SerializeObject(tokenizationRequest);
+        //    using var client = new HttpClient();
+        //    using var content = new StringContent(json, Encoding.UTF8, "application/json");
+        //    //$"{auth.TokenType} {auth.AccessToken}"
+        //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(auth.TokenType, auth.AccessToken);
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+
+        //    var result = await client.PostAsync("https://api-sandbox.getnet.com.br/v1/tokens/card", content);
+        //    var aaa = await result.Content.ReadAsStringAsync();
+        //    return new CardTokenizationResultDto();
+        //}
 
         public Task<PaymentResultDto> Payment(CardTokenizationResultDto cardTokenized)
         {
@@ -83,7 +99,7 @@ namespace PocGetNet.Repositories
             var authorizationBase64 = Convert.ToBase64String(plainTextBytes);
             return authorizationBase64;
         }
-        private HttpRequestMessage CreateTokenizationRequest(string accessToken, CardTokenizationRequest tokenizationRequest)
+        private HttpRequestMessage CreateTokenizationRequest(string accessToken, CardTokenizationRequestDto tokenizationRequest)
         {
             var json = JsonConvert.SerializeObject(tokenizationRequest);
             var httpBody = new StringContent(json, Encoding.UTF8, "application/json");
@@ -98,10 +114,9 @@ namespace PocGetNet.Repositories
                 },
                 Content = httpBody,
             };
-            //accessTokenRequest.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
-            accessTokenRequest.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("utf-8"));
-            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json") { CharSet = Encoding.UTF8.WebName });
-
+            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
 
             return accessTokenRequest;
         }
