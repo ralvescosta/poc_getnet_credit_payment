@@ -6,6 +6,7 @@ using PocGetNet.Configurations;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net;
 
 namespace PocGetNet.Repositories
 {
@@ -22,52 +23,42 @@ namespace PocGetNet.Repositories
             };
         }
 
-        public async Task<AuthenticationResultDto> Authentication() 
+        public async Task<AuthenticationResultDto> Authentication()
         {
-
             var accessTokenRequest = CreateAuthRequest();
+            var (contentInString, statusCode) = await Execute(accessTokenRequest);
 
-            try
+            if (statusCode.Equals(HttpStatusCode.OK))
             {
-                var result = await httpClient.SendAsync(accessTokenRequest);
-                result.EnsureSuccessStatusCode();
-                var contentToString = await result.Content.ReadAsStringAsync();
-                var authResult = JsonConvert.DeserializeObject<AuthenticationResultDto>(contentToString);
-                return authResult;
-            }
-            catch
-            {
-                Console.WriteLine("Error!!!");
-                throw new ApplicationException();
+                var result = DeserializeHttpContent<AuthenticationResultDto>(contentInString);
+                return result;
             }
 
+            var error = DeserializeHttpContent<AuthErrorResult>(contentInString);
+            Console.WriteLine(error.ErrorDescription);
+            throw new ApplicationException(error.ErrorDescription);
         }
 
         public async Task<CardTokenizationResultDto> CardTokenization(AuthenticationResultDto auth, CardTokenizationRequest tokenizationRequest)
         {
-            var request = CreateTokenizationRequest(auth.AccessToken, tokenizationRequest);
+            var tokenzinationRequest = CreateTokenizationRequest(auth.AccessToken, tokenizationRequest);
+            var (contentInString, statusCode) = await Execute(tokenzinationRequest);
+            if (statusCode.Equals(HttpStatusCode.Created))
+            {
+                var result = DeserializeHttpContent<CardTokenizationResultDto>(contentInString);
+                return result;
+            }
 
-            try
-            {
-                var result = await httpClient.SendAsync(request);
-                result.EnsureSuccessStatusCode();
-                var contentToString = await result.Content.ReadAsStringAsync();
-                var cardTokenResult = JsonConvert.DeserializeObject<CardTokenizationResultDto>(contentToString);
-                return cardTokenResult;
-            }
-            catch
-            {
-                throw new ApplicationException();
-            }
+            throw new ApplicationException("");
         }
-        
+
         public Task<PaymentResultDto> Payment(CardTokenizationResultDto cardTokenized)
         {
             return Task.FromResult(new PaymentResultDto());
         }
 
         #region privateMethods
-        private HttpRequestMessage CreateAuthRequest() 
+        private HttpRequestMessage CreateAuthRequest()
         {
             var authorizationBase64 = CreateAuthorizationBase64();
             var accessTokenRequest = new HttpRequestMessage()
@@ -86,7 +77,7 @@ namespace PocGetNet.Repositories
 
             return accessTokenRequest;
         }
-        private string CreateAuthorizationBase64() 
+        private string CreateAuthorizationBase64()
         {
             var plainTextBytes = Encoding.UTF8.GetBytes($"{configs.GetNetClientId}:{configs.GetNetClientSecrete}");
             var authorizationBase64 = Convert.ToBase64String(plainTextBytes);
@@ -107,11 +98,37 @@ namespace PocGetNet.Repositories
                 },
                 Content = httpBody,
             };
-            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
-            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+            //accessTokenRequest.Headers.AcceptEncoding.Add(new StringWithQualityHeaderValue("gzip"));
+            accessTokenRequest.Headers.AcceptCharset.Add(new StringWithQualityHeaderValue("utf-8"));
+            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json") { CharSet = Encoding.UTF8.WebName });
+
 
             return accessTokenRequest;
+        }
+        private async Task<(string, HttpStatusCode)> Execute(HttpRequestMessage request)
+        {
+            try
+            {
+                var result = await httpClient.SendAsync(request);
+                var content = await result.Content.ReadAsStringAsync();
+                return (content, result.StatusCode);
+            } catch (Exception ex)
+            {
+                throw new ApplicationException("HTTP REQUEST ERROR", ex);
+            }
+
+        }
+        private T DeserializeHttpContent<T>(string content)
+        {
+            try
+            {
+                var obj = JsonConvert.DeserializeObject<T>(content);
+                return obj;
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"ATHENTICATION JSON DESERIALIZE ERROR", ex);
+            }
         }
         #endregion
     }
