@@ -1,10 +1,22 @@
 {
   "version": 2,
-  "dgSpecHash": "OZNWQVhEHt/K2U5n80N4nYkXY1gUhc3cHubEJ/53k2cHu5KN/CvatftPQYw0QnAAhJkWsm6nOfiGKxYWd1arAA==",
+  "dgSpecHash": "I58+URWdSDRtgI06Wnr0FyMYd5L6tgvWp9x4dvCtbZ6ZxRbMBzKxIyPwv5fk+LO3L6kZ3f7N21kYHTIRgNZUxg==",
   "success": true,
   "projectFilePath": "C:\\Users\\rafael\\Desktop\\dti\\poc's\\PocGetNet\\PocGetNet.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.configuration\\3.1.4\\microsoft.extensions.configuration.3.1.4.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\3.1.4\\microsoft.extensions.configuration.abstractions.3.1.4.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\3.1.4\\microsoft.extensions.configuration.fileextensions.3.1.4.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.configuration.json\\3.1.4\\microsoft.extensions.configuration.json.3.1.4.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\3.1.4\\microsoft.extensions.fileproviders.abstractions.3.1.4.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\3.1.4\\microsoft.extensions.fileproviders.physical.3.1.4.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\3.1.4\\microsoft.extensions.filesystemglobbing.3.1.4.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\3.1.5\\microsoft.extensions.logging.abstractions.3.1.5.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\microsoft.extensions.primitives\\3.1.4\\microsoft.extensions.primitives.3.1.4.nupkg.sha512",
     "C:\\Users\\rafael\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\restclient\\3.0.0.21\\restclient.3.0.0.21.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\restclient.net\\4.1.0\\restclient.net.4.1.0.nupkg.sha512",
+    "C:\\Users\\rafael\\.nuget\\packages\\restclient.net.abstractions\\4.1.0\\restclient.net.abstractions.4.1.0.nupkg.sha512",
     "C:\\Users\\rafael\\.nuget\\packages\\system.net.http.json\\5.0.0\\system.net.http.json.5.0.0.nupkg.sha512",
     "C:\\Users\\rafael\\.nuget\\packages\\system.text.json\\5.0.0\\system.text.json.5.0.0.nupkg.sha512"
   ],

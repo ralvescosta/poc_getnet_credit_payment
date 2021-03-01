@@ -10,7 +10,9 @@ namespace PocGetNet
     {
         static async Task Main(string[] args)
         {
-            /**/
+            /*
+             * 
+             */
             var configurations = new AppConfigurations();
             var getNetRepository = new GetNetRepository(configurations);
             /**/
@@ -23,7 +25,7 @@ namespace PocGetNet
             /*
              * CARD TOKENIZATION
              */
-            var cardTokenizationRequest = new CardTokenizationRequestDto { CardNumber = "5155901222280001", CustiomerId = Guid.NewGuid().ToString() };
+            var cardTokenizationRequest = new CardTokenizationRequestDto { CardNumber = "5155901222280001", CustomerId = Guid.NewGuid().ToString() };
             var cardTokenized = await getNetRepository.CardTokenization(auth, cardTokenizationRequest);
 
             /*

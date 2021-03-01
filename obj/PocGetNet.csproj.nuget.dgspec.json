@@ -45,6 +45,14 @@
               "target": "Package",
               "version": "[12.0.3, )"
             },
+            "RestClient": {
+              "target": "Package",
+              "version": "[3.0.0.21, )"
+            },
+            "RestClient.Net": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
             "System.Net.Http.Json": {
               "target": "Package",
               "version": "[5.0.0, )"

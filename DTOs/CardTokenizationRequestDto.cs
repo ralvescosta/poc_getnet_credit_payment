@@ -8,6 +8,6 @@ namespace PocGetNet.DTOs
         public string CardNumber { get; set; }
 
         [JsonProperty("customer_id")]
-        public string CustiomerId { get; set; }
+        public string CustomerId { get; set; }
     }
 }

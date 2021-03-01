@@ -7,6 +7,9 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
+using RestClient.Net;
+using System.Collections.Generic;
+using RestClient.Net.Abstractions;
 
 namespace PocGetNet.Repositories
 {
@@ -43,6 +46,7 @@ namespace PocGetNet.Repositories
         {
             var tokenzinationRequest = CreateTokenizationRequest(auth.AccessToken, tokenizationRequest);
             var (contentInString, statusCode) = await Execute(tokenzinationRequest);
+            Console.WriteLine(contentInString);
             if (statusCode.Equals(HttpStatusCode.Created))
             {
                 var result = DeserializeHttpContent<CardTokenizationResultDto>(contentInString);
@@ -103,7 +107,6 @@ namespace PocGetNet.Repositories
         {
             var json = JsonConvert.SerializeObject(tokenizationRequest);
             var httpBody = new StringContent(json, Encoding.UTF8, "application/json");
-            Console.WriteLine(json.ToString());
             var accessTokenRequest = new HttpRequestMessage()
             {
                 RequestUri = new Uri(configs.GetNetCardTokenizationEntpoint),
@@ -131,7 +134,6 @@ namespace PocGetNet.Repositories
             {
                 throw new ApplicationException("HTTP REQUEST ERROR", ex);
             }
-
         }
         private T DeserializeHttpContent<T>(string content)
         {
