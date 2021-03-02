@@ -31,8 +31,14 @@ namespace PocGetNet
             /*
              * PAYMENT
              */
-            var payment = await getNetRepository.Payment(cardTokenized);
+            var paymentRequestDto = CreatePaymentRequestDto();
+            var payment = await getNetRepository.Payment(auth, paymentRequestDto);
             Console.WriteLine(payment.ToString());
+        }
+
+        private static PaymentRequestDto CreatePaymentRequestDto()
+        {
+            return new PaymentRequestDto();
         }
     }
 }

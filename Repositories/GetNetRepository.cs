@@ -7,9 +7,6 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Net;
-using RestClient.Net;
-using System.Collections.Generic;
-using RestClient.Net.Abstractions;
 
 namespace PocGetNet.Repositories
 {
@@ -20,7 +17,11 @@ namespace PocGetNet.Repositories
         public GetNetRepository(AppConfigurations configs)
         {
             this.configs = configs;
-            httpClient = new HttpClient
+            var handler = new HttpClientHandler()
+            {
+                AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate
+            };
+            httpClient = new HttpClient(handler)
             {
                 Timeout = TimeSpan.FromMinutes(5),
             };
@@ -46,7 +47,7 @@ namespace PocGetNet.Repositories
         {
             var tokenzinationRequest = CreateTokenizationRequest(auth.AccessToken, tokenizationRequest);
             var (contentInString, statusCode) = await Execute(tokenzinationRequest);
-            Console.WriteLine(contentInString);
+
             if (statusCode.Equals(HttpStatusCode.Created))
             {
                 var result = DeserializeHttpContent<CardTokenizationResultDto>(contentInString);
@@ -56,25 +57,18 @@ namespace PocGetNet.Repositories
             throw new ApplicationException("");
         }
 
-        //public async Task<CardTokenizationResultDto> CardTokenization(AuthenticationResultDto auth, CardTokenizationRequestDto tokenizationRequest)
-        //{
-        //    var json = JsonConvert.SerializeObject(tokenizationRequest);
-        //    using var client = new HttpClient();
-        //    using var content = new StringContent(json, Encoding.UTF8, "application/json");
-        //    //$"{auth.TokenType} {auth.AccessToken}"
-        //    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(auth.TokenType, auth.AccessToken);
-        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
-        //    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
-
-        //    var result = await client.PostAsync("https://api-sandbox.getnet.com.br/v1/tokens/card", content);
-        //    var aaa = await result.Content.ReadAsStringAsync();
-        //    return new CardTokenizationResultDto();
-        //}
-
-        public Task<PaymentResultDto> Payment(CardTokenizationResultDto cardTokenized)
+        public async Task<PaymentResultDto> Payment(AuthenticationResultDto auth, PaymentRequestDto payment)
         {
-            return Task.FromResult(new PaymentResultDto());
+            var paymentRequest = CreatePaymentRequest(auth.AccessToken, payment);
+            var (contentInString, statusCode) = await Execute(paymentRequest);
+
+            if (statusCode.Equals(HttpStatusCode.Created))
+            {
+                var result = DeserializeHttpContent<PaymentResultDto>(contentInString);
+                return result;
+            }
+
+            return new PaymentResultDto();
         }
 
         #region privateMethods
@@ -107,6 +101,28 @@ namespace PocGetNet.Repositories
         {
             var json = JsonConvert.SerializeObject(tokenizationRequest);
             var httpBody = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var accessTokenRequest = new HttpRequestMessage()
+            {
+                RequestUri = new Uri(configs.GetNetCardTokenizationEntpoint),
+                Method = HttpMethod.Post,
+                Headers =
+                {
+                    Authorization = new AuthenticationHeaderValue("Bearer", accessToken),
+                },
+                Content = httpBody,
+            };
+            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("text/plain"));
+            accessTokenRequest.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("*/*"));
+
+            return accessTokenRequest;
+        }
+        private HttpRequestMessage CreatePaymentRequest(string accessToken, PaymentRequestDto payment)
+        {
+            var json = JsonConvert.SerializeObject(payment);
+            var httpBody = new StringContent(json, Encoding.UTF8, "application/json");
+
             var accessTokenRequest = new HttpRequestMessage()
             {
                 RequestUri = new Uri(configs.GetNetCardTokenizationEntpoint),

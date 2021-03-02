@@ -30,15 +30,3 @@ C:\Users\rafael\Desktop\dti\poc's\PocGetNet\obj\Debug\netcoreapp3.1\PocGetNet.pd
 C:\Users\rafael\Desktop\dti\poc's\PocGetNet\obj\Debug\netcoreapp3.1\PocGetNet.genruntimeconfig.cache
 C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\System.Net.Http.Json.dll
 C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\System.Text.Json.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.FileExtensions.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Configuration.Json.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Abstractions.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileProviders.Physical.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.FileSystemGlobbing.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Primitives.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\RestClient.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\RestClient.Net.dll
-C:\Users\rafael\Desktop\dti\poc's\PocGetNet\bin\Debug\netcoreapp3.1\RestClient.Net.Abstractions.dll
